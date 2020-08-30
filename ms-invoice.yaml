@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+  kafka:
+    consumer:
+      group-id: payment-events-listener-group
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:sqlserver://52.70.59.165;databaseName=db_invoice
+    username: sa
+    password: 1a.2b.3c.
+  kafka:
+    consumer:
+      bootstrap-servers: 52.70.59.165:9092
+
+---
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:sqlserver://mssqlservice;databaseName=db_invoice
+    username: sa
+    password: 1a.2b.3c.
+  kafka:
+    consumer:
+      bootstrap-servers: kafka-service:9092

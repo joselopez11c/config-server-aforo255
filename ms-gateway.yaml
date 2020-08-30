@@ -1,0 +1,51 @@
+server:
+  port: 8090
+
+---
+spring:
+  profiles: dev
+
+zuul:
+  routes:
+    invoice:
+      service-id: invoice-api
+      path: /api/invoice/**
+      url: http://localhost:8081
+    payment:
+      service-id: payment-api
+      path: /api/payment/**
+      url: http://localhost:8006
+    transaction:
+      service-id: transaction-api
+      path: /api/transaction/**
+      url: http://localhost:8082
+    security:
+      service-id: security-api
+      path: /api/authentication/**
+      url: http://localhost:8010
+      sensitive-headers: Cookie,Set-Cookie
+
+---
+spring:
+  profiles: container
+
+zuul:
+  routes:
+    invoice:
+      service-id: invoice-api
+      path: /api/invoice/**
+      url: http://ms-invoice:8081
+    payment:
+      service-id: payment-api
+      path: /api/payment/**
+      url: http://ms-pay:8006
+    transaction:
+      service-id: transaction-api
+      path: /api/transaction/**
+      url: http://ms-transaction:8082
+    security:
+      service-id: security-api
+      path: /api/authentication/**
+      url: http://ms-security:8010
+      sensitive-headers: Cookie,Set-Cookie
+    

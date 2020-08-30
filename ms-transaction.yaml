@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  kafka:
+    consumer:
+      group-id: operation-events-listener-group
+
+---
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      uri: mongodb://52.70.59.165:27017/db_transaction
+  kafka:
+    consumer:
+      bootstrap-servers: 52.70.59.165:9092
+
+---
+spring:
+  profiles: container
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/db_transaction
+  kafka:
+    consumer:
+      bootstrap-servers: kafka-service:9092

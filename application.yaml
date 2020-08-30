@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    hikari:
+      max-lifetime: 45000
+      connection-timeout: 30000
+      idle-timeout: 35000
+      minimum-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  kafka:
+    template:
+      default-topic: payment-events
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+---
+spring:
+  profiles: dev
+  zipkin:
+    base-url: http://52.70.59.165:9411
+  
+---
+spring:
+  profiles: container
+  zipkin:
+    base-url: http://zipkin-server:9411

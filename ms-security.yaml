@@ -1,0 +1,45 @@
+server:
+  port: 8010
+
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+
+logging:
+  level:
+    .: ERROR
+    org.hibernate.SQL: DEBUG
+    com.springframework: ERROR
+    aforo255.ms.test.security: ERROR
+
+app:
+  access:
+    token:
+      converter: "123456"
+  security:
+    client:
+      id: "WebAngular"
+      password: "123456"
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://52.70.59.165:3307/db_seguridad?serverTimezone=America/Lima&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456
+
+---
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:mysql://microservicio-mysql8:3306/db_seguridad?serverTimezone=America/Lima&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456

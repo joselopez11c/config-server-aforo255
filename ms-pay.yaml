@@ -1,0 +1,49 @@
+server:
+  port: 8006
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+            
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://52.70.59.165:5432/db_operation
+    username: postgres
+    password: 123456
+  kafka:
+    producer:
+      bootstrap-servers: 52.70.59.165:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: 52.70.59.165:9092
+
+---
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:postgresql://microservicio-postgres12:5432/db_operation
+    username: postgres
+    password: 123456
+  kafka:
+    producer:
+      bootstrap-servers: kafka-service:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: kafka-service:9092
